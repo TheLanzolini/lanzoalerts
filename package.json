@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "heroku-postbuild": "running on port $PORT"
+    "heroku-postbuild": "echo \"running on port $PORT\""
   },
   "engines": {
     "node": "6.9.1",
