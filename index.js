@@ -7,7 +7,7 @@ app.get("/", function(req, res) {
 });
 
 // bind the app to listen for connections on a specified port
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8000;
 app.listen(port);
 
 // Render some console log output
