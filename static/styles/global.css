@@ -1,0 +1,9 @@
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -mac-osx-font-smoothing: greyscale;
+}
+
+html {
+  font-family: Arial, sans-serif;
+}

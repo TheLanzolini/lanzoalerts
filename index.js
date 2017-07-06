@@ -1,14 +1,34 @@
-var express = require("express");
+var express = require('express')
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+var fs = require('fs');
 
-// Set up a URL route
-app.get("/", function(req, res) {
-  res.send("Heroku Demo!");
+// express init
+server.listen(process.env.PORT || 8000);
+app.set('view engine', 'pug');
+app.use(express.static('static'));
+
+// express routes
+app.get('/', function (req, res) {
+  res.render('index', { title: 'Hey', message: 'Hello there!' });
 });
 
-// bind the app to listen for connections on a specified port
-var port = process.env.PORT || 8000;
-app.listen(port);
+app.get('/:profile', function (req, res) {
+  fs.exists(`${__dirname}/static/profiles/${req.params.profile}.js`, function(exists){
+    if(exists){
+      res.render('layout', { profile: req.params.profile })
+    }else{
+      res.render('noprofile', { profile: req.params.profile })
+    }
+  });
+});
 
-// Render some console log output
-console.log("Listening on port " + port);
+// socket
+io.on('connection', function (socket) {
+  console.log('user connected');
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});

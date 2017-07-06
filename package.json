@@ -12,9 +12,10 @@
   "engines": {
     "node": "6.9.1",
     "npm": "2.14.3"
-  } ,
+  },
   "dependencies": {
     "express": "^4.15.3",
+    "pug": "^2.0.0-rc.2",
     "socket.io": "^2.0.3"
   }
 }
