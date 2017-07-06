@@ -1,0 +1,17 @@
+{
+  "name": "twitchalerts",
+  "version": "0.1.0",
+  "description": "home made twitch alerts",
+  "main": "index.js",
+  "repository": "https://github.com/TheLanzolini/twitchalerts.git",
+  "author": "Alex <thelanzolini@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "6.9.1",
+    "npm": "2.14.3"
+  } ,
+  "dependencies": {
+    "express": "^4.15.3",
+    "socket.io": "^2.0.3"
+  }
+}
