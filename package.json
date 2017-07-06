@@ -7,8 +7,7 @@
   "author": "Alex <thelanzolini@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
-    "heroku-postbuild": "echo \"running on port $PORT\""
+    "start": "node index.js"
   },
   "engines": {
     "node": "6.9.1",
