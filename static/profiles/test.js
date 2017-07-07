@@ -1,4 +1,4 @@
-var ROOM = 'thelanzolini'
+var ROOM = 'test'
 
 window.addEventListener('DOMContentLoaded', function(){
   console.log('I AM HERsE')

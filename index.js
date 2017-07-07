@@ -1,8 +1,11 @@
-var express = require('express')
-var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-var fs = require('fs');
+const express = require('express')
+const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+const fs = require('fs');
+
+const ROOMS = {};
+let ROOM_NAMES;
 
 // express init
 server.listen(process.env.PORT || 8000);
@@ -24,11 +27,21 @@ app.get('/:profile', function (req, res) {
   });
 });
 
-// socket
-io.on('connection', function (socket) {
-  console.log('user connected');
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
+// initialize socket rooms
+fs.readdir(`${__dirname}/static/profiles`, function(err, files){
+  const rooms = files.map(function(file){
+    return file.replace('.js', '');
+  });
+  ROOM_NAMES = rooms;
+  rooms.forEach(function(room){
+    ROOMS[room] = io.of(`/${room}`);
+  });
+  ROOM_NAMES.forEach(function(name){
+    ROOMS[name].on('connection', function(socket){
+      socket.emit('init', {name: name});
+    });
+  });
+  io.on('connection', function (socket) {
+    console.log('user connected', socket.rooms);
   });
 });
