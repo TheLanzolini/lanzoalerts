@@ -7,3 +7,7 @@
 html {
   font-family: Arial, sans-serif;
 }
+
+.hidden {
+  display: none;
+}
