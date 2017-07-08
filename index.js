@@ -3,9 +3,17 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const fs = require('fs');
+const tmi = require("tmi.js");
+
+// YOUR BOT USERNAME
+const BOT_USERNAME = 'Lanzobot';
 
 const ROOMS = {};
-let ROOM_NAMES;
+let ROOM_NAMES, CLIENT, CHANNEL_NAMES, CHANNEL_IDS;
+
+// env variables that are required
+const OAUTH = process.env.OAUTH;
+const CLIENT_ID = process.env.CLIENT_ID;
 
 // express init
 server.listen(process.env.PORT || 8000);
@@ -33,6 +41,7 @@ fs.readdir(`${__dirname}/static/profiles`, function(err, files){
     return file.replace('.js', '');
   });
   ROOM_NAMES = rooms;
+  // [ 'test', 'thelanzolini' ]
   rooms.forEach(function(room){
     ROOMS[room] = io.of(`/${room}`);
   });
@@ -44,4 +53,57 @@ fs.readdir(`${__dirname}/static/profiles`, function(err, files){
   io.on('connection', function (socket) {
     console.log('user connected', socket.rooms);
   });
+
+  CHANNEL_NAMES = ROOM_NAMES.map(function(name){
+    return `#${name}`;
+  });
+
+  CLIENT = new tmi.client({
+    options: {
+      debug: true
+    },
+    connection: {
+      reconnect: true
+    },
+    identity: {
+      username: BOT_USERNAME,
+      password: OAUTH
+    },
+    channels: CHANNEL_NAMES
+  });
+
+  // Connect the client to the server..
+  CLIENT.connect();
+
+  // CLIENT.on('chat', function(channel, userstate, message, self){
+  //   console.log(channel, message);
+  //   ROOMS[channel.replace('#', '')].emit('chat', { userstate, message });
+  // });
+
+  CLIENT.on('join', function(channel, username, self){
+    ROOMS[channel.replace('#', '')].emit('join', { username });
+  });
+
+  CLIENT.on('subscription', function (channel, username, method, message, userstate) {
+    ROOMS[channel.replace('#', '')].emit('subscription', { username, method, message, userstate });
+  });
+
+  CLIENT.on('resub', function (channel, username, months, message, userstate, methods) {
+    ROOMS[channel.replace('#', '')].emit('resub', { username, months, message, userstate, methods });
+  });
+
+  CLIENT.on('cheer', function (channel, userstate, message) {
+    ROOMS[channel.replace('#', '')].emit('cheer', { channel, userstate, message })
+  });
+
+  // CLIENT.api({
+  //   url: "https://api.twitch.tv/kraken/channels/?client_id=CLIENT_ID"
+  // }, function(err, res, body) {
+  //   console.log(body);
+  // });
+
+  // const followsInterval = setInterval(function(){
+  //
+  // }, 300000);
+
 });
