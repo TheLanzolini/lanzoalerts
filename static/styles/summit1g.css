@@ -75,7 +75,7 @@
   animation-name: description;
   animation-duration: 1s;
   transform: scale(0.0);
-  text-shadow: 4px 4px 0 white, -4px -4px 0 white, 4px -4px 0 white, -4px 4px 0 white, 4px 4px 0 white;
+  text-shadow: 2px 2px 0 white, -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white;
 }
 
 .description.done {
@@ -155,7 +155,7 @@
   font-size: 20px;
   animation-name: message;
   animation-duration: 4s;
-  text-shadow: 4px 4px 0 white, -4px -4px 0 white, 4px -4px 0 white, -4px 4px 0 white, 4px 4px 0 white;
+  text-shadow: 2px 2px 0 white, -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white;
 }
 
 @keyframes message {
