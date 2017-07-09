@@ -1,24 +1,29 @@
-var ROOM = 'lirik'
-var QUEUE = [
-  { type: 'subscription', data: { username: 'Adsasds18', message: 'asdasdasd asdasd asd' } },
-  { type: 'resub', data: { username: 'Poridgeater', message: 'asdasdasd asdasd asd', months: 2 } },
-  { type: 'cheer', data: { username: 'TheLanzolini', message: 'Cheer100 :)' } }
-];
-// var QUEUE = [];
+var ROOM = 'summit1g'
+// var QUEUE = [
+//   { type: 'subscription', data: { username: 'Adsasds18', message: 'asdasdasd asdasd asd' } },
+//   { type: 'resub', data: { username: 'Poridgeater', message: 'asdasdasd asdasd asd', months: 2 } },
+//   { type: 'cheer', data: { username: 'TheLanzolini', message: 'Cheer100 :)' } }
+// ];
+var QUEUE = [];
 var $notification, $discordAudio, $harmonyAudio, $subscriptionAudio, notificationTypeAudios = {};
 
 window.addEventListener('DOMContentLoaded', function(){
 
   $discordAudio = document.createElement('audio');
   $discordAudio.src = '/sounds/zenyatta/discord.ogg';
+  $discordAudio.volume = 0.5;
   $harmonyAudio = document.createElement('audio');
   $harmonyAudio.src = '/sounds/zenyatta/harmony.ogg';
+  $harmonyAudio.volume = 0.5;
   $subscriptionAudio = document.createElement('audio');
   $subscriptionAudio.src = '/sounds/zenyatta/subscription.ogg';
+  $subscriptionAudio.volume = 0.5;
   $resubAudio = document.createElement('audio');
   $resubAudio.src = '/sounds/zenyatta/resub.ogg';
+  $resubAudio.volume = 0.5;
   $cheerAudio = document.createElement('audio');
   $cheerAudio.src = '/sounds/zenyatta/cheer.ogg';
+  $cheerAudio.volume = 0.5;
 
   notificationTypeAudios = {
     'subscription': $subscriptionAudio,
@@ -48,7 +53,7 @@ window.addEventListener('DOMContentLoaded', function(){
   });
 
   var queueInterval = setInterval(function(){
-    var notification = QUEUE.reverse().pop();
+    var notification = QUEUE.shift();
     if(notification) {
       switch(notification.type) {
         case 'subscription':
@@ -125,7 +130,7 @@ function subNotification (notification) {
 
   var $description = document.createElement('div');
   $description.classList.add('description');
-  $description.innerText = notification.type == 'subscription' ? 'New Subscription!' : notification.type == 'resub' ? `${notification.data.months} months!` : notification.type == 'cheer' ? '100 Bits!' : '';
+  $description.innerText = notification.type == 'subscription' ? 'New Subscription!' : notification.type == 'resub' ? `${notification.data.months} months!` : notification.type == 'cheer' ? `${notification.data.userstate.bits} Bits!` : '';
   $description.style.animationDelay = `${doneTime/1000}s`;
   setTimeout(function(){
     $description.classList.add('done');

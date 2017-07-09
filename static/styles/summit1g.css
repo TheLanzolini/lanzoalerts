@@ -11,7 +11,7 @@
 
 .purple-text-name {
   color: #673AB7;
-  font-size: 64px;
+  font-size: 52px;
 }
 
 .purple-text-wrapper {
@@ -71,7 +71,7 @@
 
 .description {
   text-align: center;
-  font-size: 32px;
+  font-size: 28px;
   animation-name: description;
   animation-duration: 1s;
   transform: scale(0.0);
@@ -120,7 +120,7 @@
 
 .name-char {
   text-shadow: 4px 4px 0 white, -4px -4px 0 white, 4px -4px 0 white, -4px 4px 0 white, 4px 4px 0 white;
-  margin: 0 5px;
+  margin: 0 2px;
   transition: text-shadow 0.2s linear;
   display: inline-block;
   animation-name: textAnimation;
@@ -131,9 +131,11 @@
 @keyframes textAnimation {
   0% {
     transform: scale(0.0);
+    margin: 0 1px;
   }
   100% {
     transform: scale(1.0);
+    margin: 0 1px;
   }
 }
 .name-char.half-done {
