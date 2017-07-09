@@ -1,9 +1,30 @@
 var ROOM = 'lirik'
-var QUEUE = [{ type: 'subscription', data: { username: 'Adsasds18', message: 'asdasdasd asdasd asd' } }];
+var QUEUE = [
+  { type: 'subscription', data: { username: 'Adsasds18', message: 'asdasdasd asdasd asd' } },
+  { type: 'resub', data: { username: 'Poridgeater', message: 'asdasdasd asdasd asd', months: 2 } },
+  { type: 'cheer', data: { username: 'TheLanzolini', message: 'Cheer100 :)' } }
+];
 // var QUEUE = [];
-var $notification;
+var $notification, $discordAudio, $harmonyAudio, $subscriptionAudio, notificationTypeAudios = {};
 
 window.addEventListener('DOMContentLoaded', function(){
+
+  $discordAudio = document.createElement('audio');
+  $discordAudio.src = '/sounds/zenyatta/discord.ogg';
+  $harmonyAudio = document.createElement('audio');
+  $harmonyAudio.src = '/sounds/zenyatta/harmony.ogg';
+  $subscriptionAudio = document.createElement('audio');
+  $subscriptionAudio.src = '/sounds/zenyatta/subscription.ogg';
+  $resubAudio = document.createElement('audio');
+  $resubAudio.src = '/sounds/zenyatta/resub.ogg';
+  $cheerAudio = document.createElement('audio');
+  $cheerAudio.src = '/sounds/zenyatta/cheer.ogg';
+
+  notificationTypeAudios = {
+    'subscription': $subscriptionAudio,
+    'resub': $resubAudio,
+    'cheer': $cheerAudio
+  }
 
   var link = document.createElement('link');
   link.rel = "stylesheet";
@@ -27,7 +48,6 @@ window.addEventListener('DOMContentLoaded', function(){
   });
 
   var queueInterval = setInterval(function(){
-    console.log(QUEUE);
     var notification = QUEUE.reverse().pop();
     if(notification) {
       switch(notification.type) {
@@ -51,10 +71,16 @@ window.addEventListener('DOMContentLoaded', function(){
 function subNotification (notification) {
   console.log(notification);
 
+  $discordAudio.play();
+  setTimeout(function(){
+    $harmonyAudio.play()
+  }, 1000);
+  setTimeout(function(){
+    notificationTypeAudios[notification.type].play();
+  }, 2000);
+
   var $purpleTextWrapper = document.createElement('div');
   $purpleTextWrapper.classList.add('purple-text-wrapper');
-  var $purpleTextOverlay = document.createElement('div');
-  $purpleTextOverlay.classList.add('purple-text-overlay');
   var $purpleTextName = document.createElement('div');
   $purpleTextName.classList.add('purple-text-name');
 
@@ -62,10 +88,14 @@ function subNotification (notification) {
   var charSpans = []
   chars.forEach(function(char, index){
     var charSpan = document.createElement('span');
+    var delay = (index * 0.1);
+    charSpan.style.animationDelay = `${delay}s`;
     charSpans.push(charSpan);
     charSpan.classList.add('name-char');
     charSpan.innerText = char;
     $purpleTextName.appendChild(charSpan);
+    var halfDone = (delay + 0.5) * 1000;
+    setTimeout(function(){ charSpan.classList.add('half-done'); }, halfDone);
   });
   charSpans.reverse().forEach(function(charSpan, index){
     var delay = (1 + (index * 0.05)) * 1000;
@@ -76,7 +106,6 @@ function subNotification (notification) {
 
   var doneTime = (1 + (charSpans.length * 0.05)) * 1000;
 
-  $purpleTextWrapper.appendChild($purpleTextOverlay);
   $purpleTextWrapper.appendChild($purpleTextName);
 
   $discordOrb = document.createElement('div');
