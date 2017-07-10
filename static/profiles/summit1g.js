@@ -1,8 +1,8 @@
 var ROOM = 'summit1g'
 // var QUEUE = [
-//   { type: 'subscription', data: { username: 'Adsasds18', message: 'asdasdasd asdasd asd' } },
-//   { type: 'resub', data: { username: 'Poridgeater', message: 'asdasdasd asdasd asd', months: 2 } },
-//   { type: 'cheer', data: { username: 'TheLanzolini', message: 'Cheer100 :)' } }
+//   { type: 'subscription', data: { username: 'TheLanzolini', message: 'asdasdasd asdasd asd' } },
+//   { type: 'resub', data: { username: 'colonelcoffee', message: 'asdasdasd asdasd asd', months: 2 } },
+//   { type: 'cheer', data: { username: 'TheLanzolini', userstate: { bits: 100 }, message: 'Cheer100 :)' } }
 // ];
 var QUEUE = [];
 var $notification, $discordAudio, $harmonyAudio, $subscriptionAudio, notificationTypeAudios = {};
@@ -130,7 +130,16 @@ function subNotification (notification) {
 
   var $description = document.createElement('div');
   $description.classList.add('description');
-  $description.innerText = notification.type == 'subscription' ? 'New Subscription!' : notification.type == 'resub' ? `${notification.data.months} months!` : notification.type == 'cheer' ? `${notification.data.userstate.bits} Bits!` : '';
+  var $zenyattaIcon1 = document.createElement('div');
+  $zenyattaIcon1.classList.add('zenyatta-icon');
+  var $zenyattaIcon2 = document.createElement('div');
+  $zenyattaIcon2.classList.add('zenyatta-icon', 'two');
+  var $descriptionText = document.createElement('span');
+  $descriptionText.innerText = notification.type == 'subscription' ? 'New Subscription!' : notification.type == 'resub' ? `${notification.data.months} months!` : notification.type == 'cheer' ? `${notification.data.userstate.bits} Bits!` : '';
+  $description.appendChild($zenyattaIcon1);
+  $description.appendChild($descriptionText);
+  $description.appendChild($zenyattaIcon2);
+
   $description.style.animationDelay = `${doneTime/1000}s`;
   setTimeout(function(){
     $description.classList.add('done');
@@ -144,7 +153,11 @@ function subNotification (notification) {
   $notification.appendChild($description);
   $notification.appendChild($message);
   setTimeout(function(){
-    $notification.innerHTML = '';
+    $notification.classList.add('out');
   }, 8000);
+  setTimeout(function(){
+    $notification.innerHTML = '';
+    $notification.classList.remove('out');
+  }, 9000);
 
 }
