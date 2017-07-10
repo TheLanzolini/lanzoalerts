@@ -1,10 +1,13 @@
-var ROOM = 'summit1g'
-// var QUEUE = [
-//   { type: 'subscription', data: { username: 'TheLanzolini', message: 'asdasdasd asdasd asd' } },
-//   { type: 'resub', data: { username: 'colonelcoffee', message: 'asdasdasd asdasd asd', months: 2 } },
-//   { type: 'cheer', data: { username: 'TheLanzolini', userstate: { bits: 100 }, message: 'Cheer100 :)' } }
-// ];
-var QUEUE = [];
+var ROOM = 'zzyzxtv'
+if(location.search == '?test'){
+  var QUEUE = [
+    { type: 'subscription', data: { username: 'TheLanzolini', message: '' } },
+    { type: 'resub', data: { username: 'TheLanzolini', message: 'I just resubbed, and this is my message :)', months: 2 } },
+    { type: 'cheer', data: { username: 'TheLanzolini', userstate: { bits: 100 }, message: 'Cheer100 :) I just cheered!' } }
+  ];
+}else{
+  var QUEUE = [];
+}
 var $notification, $discordAudio, $harmonyAudio, $subscriptionAudio, notificationTypeAudios = {};
 
 window.addEventListener('DOMContentLoaded', function(){
