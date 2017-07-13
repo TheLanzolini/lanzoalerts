@@ -9,6 +9,7 @@ const tmi = require("tmi.js");
 const BOT_USERNAME = 'Lanzobot';
 
 const ROOMS = {};
+const FOLLOWS_INFO = {};
 let ROOM_NAMES, CLIENT, CHANNEL_NAMES, CHANNEL_IDS;
 
 // env variables that are required
@@ -25,6 +26,37 @@ app.get('/', function (req, res) {
   res.render('index', { title: 'Hey', message: 'Hello there!' });
 });
 
+app.get('/login', function(req, res) {
+  res.redirect(`https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=${process.env.CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost&scope=user_read`);
+});
+
+// make proxy for request because need client id
+app.post('/api/user', function(exreq, exres) {
+  const oauth = exreq.headers['x-lanzo-oauth-token'];
+  CLIENT.api({
+    url: 'https://api.twitch.tv/kraken/user',
+    headers: {
+      'Accept': 'application/vnd.twitchtv.v5+json',
+      'Authorization': `OAuth ${oauth}`,
+      'Client-ID': process.env.CLIENT_ID
+    }
+  }, function(err, res, body) {
+    console.log(body);
+    if(ROOM_NAMES.includes(body.name)){
+      FOLLOWS_INFO[body.name] = {
+        oauth: oauth,
+        id: body._id
+      }
+      exres.json({ redirect: `/${body.name}` });
+    }
+  });
+
+});
+
+app.get('/redirect', function(req, res) {
+  res.render('redirect');
+});
+
 app.get('/:profile', function (req, res) {
   fs.exists(`${__dirname}/static/profiles/${req.params.profile}.js`, function(exists){
     if(exists){
@@ -34,6 +66,8 @@ app.get('/:profile', function (req, res) {
     }
   });
 });
+
+
 
 // initialize socket rooms
 fs.readdir(`${__dirname}/static/profiles`, function(err, files){
@@ -96,8 +130,12 @@ fs.readdir(`${__dirname}/static/profiles`, function(err, files){
     ROOMS[channel.replace('#', '')].emit('cheer', { channel, userstate, message })
   });
 
+  const followsInterval = setInterval(function(){
+    console.log('follows info', FOLLOWS_INFO);
+  }, 60000);
+
   // CLIENT.api({
-  //   url: "https://api.twitch.tv/kraken/channels/?client_id=CLIENT_ID"
+  //   url: "https://api.twitch.tv/kraken/channels/<channel ID>/follows"
   // }, function(err, res, body) {
   //   console.log(body);
   // });
