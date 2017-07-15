@@ -7,6 +7,7 @@ const tmi = require("tmi.js");
 
 // YOUR BOT USERNAME
 const BOT_USERNAME = 'Lanzobot';
+const FOLLOWS_INTERVAL = 60000;
 
 const ROOMS = {};
 const FOLLOWS_INFO = {};
@@ -41,7 +42,6 @@ app.post('/api/user', function(exreq, exres) {
       'Client-ID': process.env.CLIENT_ID
     }
   }, function(err, res, body) {
-    console.log(body);
     if(ROOM_NAMES.includes(body.name)){
       FOLLOWS_INFO[body.name] = {
         oauth: oauth,
@@ -132,7 +132,49 @@ fs.readdir(`${__dirname}/static/profiles`, function(err, files){
 
   const followsInterval = setInterval(function(){
     console.log('follows info', FOLLOWS_INFO);
-  }, 60000);
+    const keys = Object.keys(FOLLOWS_INFO);
+
+    keys.forEach(function(key){
+      const { oauth, id } = FOLLOWS_INFO[key];
+      CLIENT.api({
+        url: `https://api.twitch.tv/kraken/channels/${id}/follows`,
+        headers: {
+          'Accept': 'application/vnd.twitchtv.v5+json',
+          'Client-ID': process.env.CLIENT_ID
+        }
+      }, function(err, res, body){
+        const { follows } = body
+        follows.forEach(function(follow) {
+          const timeFollowed = new Date(follow.created_at).getTime();
+          const currentTime = new Date().getTime();
+          if(currentTime - timeFollowed < FOLLOWS_INTERVAL){
+            ROOMS[key].emit('follow', follow);
+          }
+        });
+      });
+    });
+
+  }, FOLLOWS_INTERVAL);
+
+  // FOR TESTING
+  const testFollow = {
+    created_at: "2017-07-08T06:25:05Z",
+    notifications: false,
+    user: {
+      bio: null,
+      created_at: "2016-10-28T04:48:40.325459Z",
+      display_name: "ThePoridgeater",
+      logo: null,
+      name: "theporidgeater",
+      type: "user",
+      updated_at: "2017-07-14T02:30:05.577143Z",
+      _id: "123123123"
+    }
+  }
+
+  // setInterval(function(){
+  //   ROOMS['thelanzolini'].emit('follow', testFollow);
+  // }, 20000);
 
   // CLIENT.api({
   //   url: "https://api.twitch.tv/kraken/channels/<channel ID>/follows"

@@ -1,3 +1,97 @@
 html {
-  font-family: Impact;
+  font-family: 'Audiowide', cursive;
+}
+
+#notification {
+  width: 1920px;
+  height: 1080px;
+}
+
+.notification-body {
+  width: 100%;
+  height: 100%;
+}
+
+.explosion {
+  width: 750px;
+  height: 750px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -375px;
+  margin-top: -375px;
+  transition: opacity 0.5s linear;
+  z-index: 10;
+}
+
+.explosion.fade {
+  opacity: 0.0;
+}
+
+.user-name {
+  font-size: 40px;
+  line-height: 1.5;
+  min-width: 500px;
+  max-width: 500px;
+  min-height: 500px;
+  max-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  margin-left: -250px;
+  margin-top: -250px;
+  z-index: 1;
+  animation-name: fadeIn;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-delay: 0.50s;
+  opacity: 1.0;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 1.0;
+  }
+  10% {
+    opacity: 1.0;
+  }
+  90% {
+    opacity: 1.0;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+
+.notification-body.start {
+  animation-name: bgColor;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: 6;
+}
+
+@keyframes bgColor {
+  0% {
+    background-color: rgba(255, 0, 0, 0.2);
+  }
+  20% {
+    background-color: rgba(255, 255, 0, 0.2);
+  }
+  40% {
+    background-color: rgba(0, 255, 0, 0.2);
+  }
+  60% {
+    background-color: rgba(0, 255, 255, 0.2);
+  }
+  80% {
+    background-color: rgba(0, 0, 255, 0.2);
+  }
+  100% {
+    background-color: rgba(255, 0, 255, 0.2);
+  }
 }
