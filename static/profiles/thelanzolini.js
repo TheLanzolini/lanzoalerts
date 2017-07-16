@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
   var link = document.createElement('link');
   link.rel = "stylesheet";
-  link.href = "https://fonts.googleapis.com/css?family=Audiowide";
+  link.href = "https://fonts.googleapis.com/css?family=Bungee";
   document.head.appendChild(link);
 
   var socket = io(`/${ROOM}`);
@@ -76,7 +76,14 @@ function notify(notification) {
 
   var $userName = document.createElement('div');
   $userName.classList.add('user-name');
-  $userName.textContent = notification.data.user.display_name + ' has followed!';
+  var $userText = document.createElement('div');
+  $userText.classList.add('text');
+  $userText.textContent = notification.data.user.display_name;
+  var $userDescription = document.createElement('div');
+  $userDescription.classList.add('description');
+  $userDescription.textContent = 'New Follower';
+  $userName.appendChild($userText);
+  $userName.appendChild($userDescription);
 
 
   setTimeout(function(){
