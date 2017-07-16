@@ -27,35 +27,37 @@ app.get('/', function (req, res) {
   res.render('index', { title: 'Hey', message: 'Hello there!' });
 });
 
-app.get('/login', function(req, res) {
-  res.redirect(`https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=${process.env.CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost&scope=user_read`);
-});
+
+// login stuff for maybe someday?
+// app.get('/login', function(req, res) {
+//   res.redirect(`https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=${process.env.CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost&scope=user_read`);
+// });
 
 // make proxy for request because need client id
-app.post('/api/user', function(exreq, exres) {
-  const oauth = exreq.headers['x-lanzo-oauth-token'];
-  CLIENT.api({
-    url: 'https://api.twitch.tv/kraken/user',
-    headers: {
-      'Accept': 'application/vnd.twitchtv.v5+json',
-      'Authorization': `OAuth ${oauth}`,
-      'Client-ID': process.env.CLIENT_ID
-    }
-  }, function(err, res, body) {
-    if(ROOM_NAMES.includes(body.name)){
-      FOLLOWS_INFO[body.name] = {
-        oauth: oauth,
-        id: body._id
-      }
-      exres.json({ redirect: `/${body.name}` });
-    }
-  });
+// app.post('/api/user', function(exreq, exres) {
+//   const oauth = exreq.headers['x-lanzo-oauth-token'];
+//   CLIENT.api({
+//     url: 'https://api.twitch.tv/kraken/user',
+//     headers: {
+//       'Accept': 'application/vnd.twitchtv.v5+json',
+//       'Authorization': `OAuth ${oauth}`,
+//       'Client-ID': process.env.CLIENT_ID
+//     }
+//   }, function(err, res, body) {
+//     if(ROOM_NAMES.includes(body.name)){
+//       FOLLOWS_INFO[body.name] = {
+//         oauth: oauth,
+//         id: body._id
+//       }
+//       exres.json({ redirect: `/${body.name}` });
+//     }
+//   });
+//
+// });
 
-});
-
-app.get('/redirect', function(req, res) {
-  res.render('redirect');
-});
+// app.get('/redirect', function(req, res) {
+//   res.render('redirect');
+// });
 
 app.get('/:profile', function (req, res) {
   fs.exists(`${__dirname}/static/profiles/${req.params.profile}.js`, function(exists){
@@ -76,7 +78,8 @@ fs.readdir(`${__dirname}/static/profiles`, function(err, files){
   });
   ROOM_NAMES = rooms;
   // [ 'test', 'thelanzolini' ]
-  rooms.forEach(function(room){
+  // create room for each profile
+  ROOM_NAMES.forEach(function(room){
     ROOMS[room] = io.of(`/${room}`);
   });
   ROOM_NAMES.forEach(function(name){
@@ -109,6 +112,20 @@ fs.readdir(`${__dirname}/static/profiles`, function(err, files){
   // Connect the client to the server..
   CLIENT.connect();
 
+  ROOM_NAMES.forEach(function(name){
+    CLIENT.api({
+      url: `https://api.twitch.tv/kraken/users?login=${name}`,
+      headers: {
+        'Accept': 'application/vnd.twitchtv.v5+json',
+        'Client-ID': process.env.CLIENT_ID
+      }
+    }, function(err, res, body){
+      if(body.users && body.users.length > 0 && body.users[0].name == name) {
+        FOLLOWS_INFO[name] = { id: body.users[0]._id };
+      }
+    })
+  });
+
   // CLIENT.on('chat', function(channel, userstate, message, self){
   //   console.log(channel, message);
   //   ROOMS[channel.replace('#', '')].emit('chat', { userstate, message });
@@ -131,9 +148,7 @@ fs.readdir(`${__dirname}/static/profiles`, function(err, files){
   });
 
   const followsInterval = setInterval(function(){
-    console.log('follows info', FOLLOWS_INFO);
     const keys = Object.keys(FOLLOWS_INFO);
-
     keys.forEach(function(key){
       const { oauth, id } = FOLLOWS_INFO[key];
       CLIENT.api({
@@ -172,18 +187,8 @@ fs.readdir(`${__dirname}/static/profiles`, function(err, files){
     }
   }
 
-  // setInterval(function(){
-  //   ROOMS['thelanzolini'].emit('follow', testFollow);
-  // }, 20000);
-
-  // CLIENT.api({
-  //   url: "https://api.twitch.tv/kraken/channels/<channel ID>/follows"
-  // }, function(err, res, body) {
-  //   console.log(body);
-  // });
-
-  // const followsInterval = setInterval(function(){
-  //
-  // }, 300000);
+  setInterval(function(){
+    ROOMS['thelanzolini'].emit('follow', testFollow);
+  }, 20000);
 
 });

@@ -1,7 +1,7 @@
 var ROOM = 'thelanzolini'
 
 var QUEUE = [];
-var $notification, $walkingInTheReallyLate80s, $explosionAudio;
+var $notification, $walkingInTheReallyLate80s, $explosionAudio, $KameHameHa;
 
 window.addEventListener('DOMContentLoaded', function(){
   $notification = document.getElementById('notification');
@@ -13,6 +13,10 @@ window.addEventListener('DOMContentLoaded', function(){
   $explosionAudio = document.createElement('audio');
   $explosionAudio.src = '/sounds/thelanzolini/explosion.mp3';
   $explosionAudio.volume = 0.5;
+
+  $KameHameHa = document.createElement('audio');
+  $KameHameHa.src = '/sounds/thelanzolini/kame_hame_ha.mp3';
+  $KameHameHa.volume = 1.0;
 
   var link = document.createElement('link');
   link.rel = "stylesheet";
@@ -54,6 +58,7 @@ function notify(notification) {
   $notification.appendChild($notificationBody);
   $notificationBody.classList.add('start');
   $walkingInTheReallyLate80s.play();
+  $KameHameHa.play();
   var $explosion = document.createElement('img');
   $explosion.src = '/images/explosion.gif';
   $explosion.classList.add('explosion');
