@@ -1,6 +1,17 @@
 var ROOM = 'thelanzolini'
+var QUEUE_INTERVAL_TIME = 20000;
 
-var QUEUE = [];
+if(location.search == '?test'){
+  var QUEUE = [
+    { type: 'follow', data: { user: { display_name: "ThePoridgeater", name: "theporidgeater" } } },
+    { type: 'follow', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" } } },
+    { type: 'follow', data: { user: { display_name: "Afeonim", name: "afeonim" } } },
+    { type: 'follow', data: { user: { display_name: "Coreyshift", name: "coreyshift" } } }
+  ]
+} else {
+  var QUEUE = [];
+}
+
 var $notification, $walkingInTheReallyLate80s, $explosionAudio, $KameHameHa;
 
 window.addEventListener('DOMContentLoaded', function(){
@@ -49,7 +60,7 @@ window.addEventListener('DOMContentLoaded', function(){
           break;
       }
     }
-  }, 10000);
+  }, QUEUE_INTERVAL_TIME);
 });
 
 function notify(notification) {

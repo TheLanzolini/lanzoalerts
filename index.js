@@ -171,24 +171,4 @@ fs.readdir(`${__dirname}/static/profiles`, function(err, files){
 
   }, FOLLOWS_INTERVAL);
 
-  // FOR TESTING
-  const testFollow = {
-    created_at: "2017-07-08T06:25:05Z",
-    notifications: false,
-    user: {
-      bio: null,
-      created_at: "2016-10-28T04:48:40.325459Z",
-      display_name: "ThePoridgeater",
-      logo: null,
-      name: "theporidgeater",
-      type: "user",
-      updated_at: "2017-07-14T02:30:05.577143Z",
-      _id: "123123123"
-    }
-  }
-
-  setInterval(function(){
-    ROOMS['thelanzolini'].emit('follow', testFollow);
-  }, 20000);
-
 });
