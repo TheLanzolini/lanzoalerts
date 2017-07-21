@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
   var link = document.createElement('link');
   link.rel = "stylesheet";
-  link.href = "https://fonts.googleapis.com/css?family=Bungee";
+  link.href = "https://fonts.googleapis.com/css?family=Bungee|Teko";
   document.head.appendChild(link);
 
   var socket = io(`/${ROOM}`);
@@ -54,7 +54,7 @@ window.addEventListener('DOMContentLoaded', function(){
     if(notification) {
       switch(notification.type) {
         case 'follow':
-          notify(notification);
+          pubgNotify(notification);
           break;
         default:
           break;
@@ -101,4 +101,30 @@ function notify(notification) {
     $notification.innerHTML = '';
   }, 9000);
 
+}
+
+function pubgNotify(notification){
+  var $notificationBody = document.createElement('div');
+  $notificationBody.classList.add('pubg-body');
+  $notification.appendChild($notificationBody);
+
+  var $pan = document.createElement('img');
+  $pan.src = 'images/pan.png';
+  $pan.classList.add('pubg-pan');
+  $notificationBody.appendChild($pan);
+
+  var $blood = document.createElement('img');
+  $blood.src = 'images/blood.png';
+  $blood.classList.add('pubg-blood');
+  $notificationBody.appendChild($blood);
+
+  var $notificationText = document.createElement('div');
+  $notificationText.classList.add('pubg-text')
+  var $userName = document.createElement('div');
+  $userName.textContent = notification.data.user.display_name;
+  var $desc = document.createElement('div');
+  $desc.textContent = 'New Follower';
+  $notificationText.appendChild($desc);
+  $notificationText.appendChild($userName);
+  $notificationBody.appendChild($notificationText);
 }

@@ -102,3 +102,50 @@ html {
     background-color: rgba(255, 0, 255, 0.2);
   }
 }
+
+.pubg-body {
+  font-family: 'Teko', sans-serif;
+  display: flex;
+  position: relative;
+}
+
+.pubg-text {
+  text-transform: uppercase;
+  line-height: 1;
+  font-size: 50px;
+  color: #8A0707;
+}
+
+.pubg-pan {
+  width: 100px;
+  height: 100px;
+  animation-name: pubgPan;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  z-index: 10;
+}
+
+.pubg-blood {
+  position: absolute;
+  left: 0;
+  z-index: 5;
+}
+
+@keyframes pubgPan {
+  0% {
+    transform: rotate(0deg) scale(5.0);
+  }
+  3% {
+    transform: rotate(360deg) scale(1.0);
+  }
+  4% {
+    transform: rotateX(360deg) scale(1.02);
+  }
+  5% {
+    transform: rotateX(360deg) scale(1.0);
+  }
+  100% {
+    transform: rotateX(360deg) scale(1.0);
+  }
+}
