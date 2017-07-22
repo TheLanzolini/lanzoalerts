@@ -144,7 +144,7 @@ fs.readdir(`${__dirname}/static/profiles`, function(err, files){
   });
 
   CLIENT.on('cheer', function (channel, userstate, message) {
-    ROOMS[channel.replace('#', '')].emit('cheer', { channel, userstate, message })
+    ROOMS[channel.replace('#', '')].emit('cheer', { channel, userstate, message });
   });
 
   const followsInterval = setInterval(function(){
@@ -158,7 +158,7 @@ fs.readdir(`${__dirname}/static/profiles`, function(err, files){
           'Client-ID': process.env.CLIENT_ID
         }
       }, function(err, res, body){
-        const { follows } = body
+        const { follows } = body;
         follows.forEach(function(follow) {
           const timeFollowed = new Date(follow.created_at).getTime();
           const currentTime = new Date().getTime();

@@ -1,4 +1,4 @@
-var ROOM = 'thelanzolini'
+var ROOM = 'thelanzolini';
 var QUEUE_INTERVAL_TIME = 20000;
 
 if(location.search == '?test'){
@@ -12,7 +12,7 @@ if(location.search == '?test'){
   var QUEUE = [];
 }
 
-var $notification, $walkingInTheReallyLate80s, $explosionAudio, $KameHameHa, $panSound;
+var $notification, $walkingInTheReallyLate80s, $explosionAudio, $KameHameHa, $panSound, $pubgTheme;
 
 window.addEventListener('DOMContentLoaded', function(){
   $notification = document.getElementById('notification');
@@ -32,6 +32,10 @@ window.addEventListener('DOMContentLoaded', function(){
   $panSound = document.createElement('audio');
   $panSound.src = '/sounds/thelanzolini/pan.mp3';
   $panSound.volume = 0.05;
+
+  $pubgTheme = document.createElement('audio');
+  $pubgTheme.src = '/sounds/thelanzolini/pubgtheme1.mp3';
+  $pubgTheme.volume = 0.5;
 
   var link = document.createElement('link');
   link.rel = "stylesheet";
@@ -108,6 +112,7 @@ function notify(notification) {
 }
 
 function pubgNotify(notification){
+  $pubgTheme.play();
   var $pubgBody = document.createElement('div');
   $pubgBody.classList.add('pubg-body');
   var $pubgWrapper = document.createElement('div');
