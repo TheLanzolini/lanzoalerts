@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
   $panSound = document.createElement('audio');
   $panSound.src = '/sounds/thelanzolini/pan.mp3';
-  $panSound.volume = 0.05;
+  $panSound.volume = 0.25;
 
   $pubgTheme = document.createElement('audio');
   $pubgTheme.src = '/sounds/thelanzolini/pubgtheme1.mp3';
@@ -151,7 +151,7 @@ function pubgNotify(notification){
 
   setTimeout(function(){
     $panSound.play();
-  }, 200);
+  }, 150);
 
   setTimeout(function(){
     $pubgBody.classList.add('done');
