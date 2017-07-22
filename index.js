@@ -13,6 +13,12 @@ const ROOMS = {};
 const FOLLOWS_INFO = {};
 let ROOM_NAMES, CLIENT, CHANNEL_NAMES, CHANNEL_IDS;
 
+const commands = {
+  'thelanzolini': [
+    '!victory'
+  ]
+}
+
 // env variables that are required
 const OAUTH = process.env.OAUTH;
 const CLIENT_ID = process.env.CLIENT_ID;
@@ -27,38 +33,6 @@ app.get('/', function (req, res) {
   res.render('index', { title: 'Hey', message: 'Hello there!' });
 });
 
-
-// login stuff for maybe someday?
-// app.get('/login', function(req, res) {
-//   res.redirect(`https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=${process.env.CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost&scope=user_read`);
-// });
-
-// make proxy for request because need client id
-// app.post('/api/user', function(exreq, exres) {
-//   const oauth = exreq.headers['x-lanzo-oauth-token'];
-//   CLIENT.api({
-//     url: 'https://api.twitch.tv/kraken/user',
-//     headers: {
-//       'Accept': 'application/vnd.twitchtv.v5+json',
-//       'Authorization': `OAuth ${oauth}`,
-//       'Client-ID': process.env.CLIENT_ID
-//     }
-//   }, function(err, res, body) {
-//     if(ROOM_NAMES.includes(body.name)){
-//       FOLLOWS_INFO[body.name] = {
-//         oauth: oauth,
-//         id: body._id
-//       }
-//       exres.json({ redirect: `/${body.name}` });
-//     }
-//   });
-//
-// });
-
-// app.get('/redirect', function(req, res) {
-//   res.render('redirect');
-// });
-
 app.get('/:profile', function (req, res) {
   fs.exists(`${__dirname}/static/profiles/${req.params.profile}.js`, function(exists){
     if(exists){
@@ -68,8 +42,6 @@ app.get('/:profile', function (req, res) {
     }
   });
 });
-
-
 
 // initialize socket rooms
 fs.readdir(`${__dirname}/static/profiles`, function(err, files){
@@ -126,10 +98,18 @@ fs.readdir(`${__dirname}/static/profiles`, function(err, files){
     })
   });
 
-  // CLIENT.on('chat', function(channel, userstate, message, self){
-  //   console.log(channel, message);
-  //   ROOMS[channel.replace('#', '')].emit('chat', { userstate, message });
-  // });
+  CLIENT.on('chat', function(channel, userstate, message, self){
+    console.log(channel, message);
+    const chan = channel.replace('#', '');
+    // ROOMS[chan].emit('chat', { userstate, message });
+    if(!!commands[chan]){
+      commands[chan].forEach(function(command){
+        if(message.includes(command)){
+          ROOMS[chan].emit(command, { userstate, message });
+        }
+      });
+    }
+  });
 
   CLIENT.on('join', function(channel, username, self){
     ROOMS[channel.replace('#', '')].emit('join', { username });
