@@ -12,7 +12,7 @@ if(location.search == '?test'){
   var QUEUE = [];
 }
 
-var $notification, $walkingInTheReallyLate80s, $explosionAudio, $KameHameHa;
+var $notification, $walkingInTheReallyLate80s, $explosionAudio, $KameHameHa, $panSound;
 
 window.addEventListener('DOMContentLoaded', function(){
   $notification = document.getElementById('notification');
@@ -28,6 +28,10 @@ window.addEventListener('DOMContentLoaded', function(){
   $KameHameHa = document.createElement('audio');
   $KameHameHa.src = '/sounds/thelanzolini/kame_hame_ha.mp3';
   $KameHameHa.volume = 1.0;
+
+  $panSound = document.createElement('audio');
+  $panSound.src = '/sounds/thelanzolini/pan.mp3';
+  $panSound.volume = 0.05;
 
   var link = document.createElement('link');
   link.rel = "stylesheet";
@@ -104,19 +108,23 @@ function notify(notification) {
 }
 
 function pubgNotify(notification){
-  var $notificationBody = document.createElement('div');
-  $notificationBody.classList.add('pubg-body');
-  $notification.appendChild($notificationBody);
+  var $pubgBody = document.createElement('div');
+  $pubgBody.classList.add('pubg-body');
+  var $pubgWrapper = document.createElement('div');
+  $pubgWrapper.classList.add('pubg-wrapper');
+  $pubgWrapper.appendChild($pubgBody)
+
+  $notification.appendChild($pubgWrapper);
 
   var $pan = document.createElement('img');
   $pan.src = 'images/pan.png';
   $pan.classList.add('pubg-pan');
-  $notificationBody.appendChild($pan);
+  $pubgBody.appendChild($pan);
 
   var $blood = document.createElement('img');
   $blood.src = 'images/blood.png';
   $blood.classList.add('pubg-blood');
-  $notificationBody.appendChild($blood);
+  $pubgBody.appendChild($blood);
 
   var $notificationText = document.createElement('div');
   $notificationText.classList.add('pubg-text')
@@ -126,5 +134,18 @@ function pubgNotify(notification){
   $desc.textContent = 'New Follower';
   $notificationText.appendChild($desc);
   $notificationText.appendChild($userName);
-  $notificationBody.appendChild($notificationText);
+  $pubgBody.appendChild($notificationText);
+
+  setTimeout(function(){
+    $panSound.play();
+  }, 200);
+
+  setTimeout(function(){
+    $pubgBody.classList.add('done');
+  }, 8500);
+
+  setTimeout(function(){
+    $notification.innerHTML = ''
+  }, 9000);
+
 }
