@@ -1,0 +1,151 @@
+@font-face {
+  font-family: 'Headliner';
+  src: url('/fonts/Headliner.ttf') format('truetype');
+}
+
+html {
+  font-family: 'Bungee', cursive;
+}
+
+#notification {
+  width: 100%;
+  height: 100%;
+}
+/* Pubg Notification
+===========================
+*/
+
+.pubg-body.done {
+  animation-name: pubgDone;
+  animation-duration: 1.0s;
+  animation-timing-function: ease-in;
+}
+
+@keyframes pubgDone {
+  0% {
+    transform: scale(1.0);
+  }
+  50% {
+    transform: scale(0.0);
+  }
+  100% {
+    transform: scale(0.0);
+  }
+}
+
+.pubg-wrapper {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  margin-left: -155px;
+}
+
+@keyframes bgColor {
+  0% {
+    background-color: rgba(255, 0, 0, 0.2);
+  }
+  20% {
+    background-color: rgba(255, 255, 0, 0.2);
+  }
+  40% {
+    background-color: rgba(0, 255, 0, 0.2);
+  }
+  60% {
+    background-color: rgba(0, 255, 255, 0.2);
+  }
+  80% {
+    background-color: rgba(0, 0, 255, 0.2);
+  }
+  100% {
+    background-color: rgba(255, 0, 255, 0.2);
+  }
+}
+
+.pubg-body {
+  font-family: 'Headliner', sans-serif;
+  display: flex;
+  position: relative;
+}
+
+.pubg-text {
+  text-transform: uppercase;
+  line-height: 1;
+  font-size: 52px;
+  line-height: 52px;
+  color: #8A0707;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation-name: pubgText;
+  animation-duration: 10s;
+  animation-timing-function: ease;
+  animation-delay: 0.5s;
+  transform: translateX(-10%);
+  opacity: 0.0;
+  letter-spacing: 1px;
+}
+
+@keyframes pubgText {
+  0% {
+    transform: translateX(-10%);
+    opacity: 0.0;
+  }
+  10% {
+    transform: translateX(3%);
+    opacity: 1.0;
+  }
+  100% {
+    transform: translateX(3%);
+    opacity: 1.0;
+  }
+}
+
+.pubg-pan {
+  width: 125px;
+  height: 125px;
+  animation-name: pubgPan;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  z-index: 10;
+}
+
+.pubg-blood {
+  position: absolute;
+  left: -4px;
+  top: -1px;
+  z-index: 5;
+  animation-name: pubgBlood;
+  animation-duration: 10s;
+  animation-timing-function: ease-out;
+  animation-delay: 0.15s;
+}
+
+@keyframes pubgBlood {
+  0% {
+    transform: scale(0.0);
+  }
+  2% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes pubgPan {
+  0% {
+    transform: rotate(0deg) scale(5.0);
+  }
+  3% {
+    transform: rotate(450deg) scale(1.0);
+  }
+  4% {
+    transform: rotate(450deg) scale(1.02);
+  }
+  5% {
+    transform: rotate(450deg) scale(1.0);
+  }
+  100% {
+    transform: rotate(450deg) scale(1.0);
+  }
+}

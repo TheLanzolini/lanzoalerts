@@ -29,18 +29,6 @@ window.addEventListener('DOMContentLoaded', function(){
   $KameHameHa.src = '/sounds/thelanzolini/kame_hame_ha.mp3';
   $KameHameHa.volume = 1.0;
 
-  $panSound = document.createElement('audio');
-  $panSound.src = '/sounds/thelanzolini/pan.mp3';
-  $panSound.volume = 0.25;
-
-  $pubgTheme = document.createElement('audio');
-  $pubgTheme.src = '/sounds/thelanzolini/pubgtheme1.mp3';
-  $pubgTheme.volume = 0.5;
-
-  $sweetVictory = document.createElement('audio');
-  $sweetVictory.src = '/sounds/thelanzolini/sweet_victory.mp3';
-  $sweetVictory.volume = 0.5;
-
   var link = document.createElement('link');
   link.rel = "stylesheet";
   link.href = "https://fonts.googleapis.com/css?family=Bungee|Teko";
@@ -61,16 +49,12 @@ window.addEventListener('DOMContentLoaded', function(){
     QUEUE.push({ type: 'follow', data });
   });
 
-  socket.on('!victory', function(data){
-    spongeNotify();
-  });
-
   var queueInterval = setInterval(function(){
     var notification = QUEUE.shift();
     if(notification) {
       switch(notification.type) {
         case 'follow':
-          pubgNotify(notification);
+          notify(notification);
           break;
         default:
           break;
@@ -116,78 +100,4 @@ function notify(notification) {
   setTimeout(function(){
     $notification.innerHTML = '';
   }, 9000);
-
-}
-
-function pubgNotify(notification){
-  $pubgTheme.play();
-  var $pubgBody = document.createElement('div');
-  $pubgBody.classList.add('pubg-body');
-  var $pubgWrapper = document.createElement('div');
-  $pubgWrapper.classList.add('pubg-wrapper');
-  $pubgWrapper.appendChild($pubgBody)
-
-  $notification.appendChild($pubgWrapper);
-
-  var $pan = document.createElement('img');
-  $pan.src = 'images/pan.png';
-  $pan.classList.add('pubg-pan');
-  $pubgBody.appendChild($pan);
-
-  var $blood = document.createElement('img');
-  $blood.src = 'images/blood.png';
-  $blood.classList.add('pubg-blood');
-  $pubgBody.appendChild($blood);
-
-  var $notificationText = document.createElement('div');
-  $notificationText.classList.add('pubg-text')
-  var $userName = document.createElement('div');
-  $userName.textContent = notification.data.user.display_name;
-  var $desc = document.createElement('div');
-  $desc.textContent = 'New Follower';
-  $notificationText.appendChild($desc);
-  $notificationText.appendChild($userName);
-  $pubgBody.appendChild($notificationText);
-
-  setTimeout(function(){
-    $panSound.play();
-  }, 150);
-
-  setTimeout(function(){
-    $pubgBody.classList.add('done');
-  }, 8500);
-
-  setTimeout(function(){
-    $notification.innerHTML = '';
-  }, 9000);
-}
-
-function spongeNotify() {
-  var $spongeBody = document.createElement('div');
-  $spongeBody.classList.add('sponge-body');
-  $notification.appendChild($spongeBody);
-
-  var members = ['krabs', 'patrick', 'sandy', 'spongebob'];
-  members.forEach(function(member){
-    var iWrap = document.createElement('div');
-    iWrap.classList.add('rockstar-wrap', `${member}-wrap`);
-    var i = document.createElement('img');
-    i.src = `/images/sweet_victory/${member}.jpg`;
-    i.classList.add(member, 'rockstar');
-    iWrap.appendChild(i)
-    $spongeBody.appendChild(iWrap);
-  });
-
-  var fans = document.createElement('img');
-  fans.classList.add('fans');
-  fans.src = '/images/sweet_victory/giphy.gif';
-
-  $spongeBody.appendChild(fans);
-
-  $sweetVictory.play();
-
-  setTimeout(function(){
-    $notification.innerHTML = '';
-  }, 9000);
-
 }
