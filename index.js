@@ -146,7 +146,7 @@ const followsInterval = setInterval(function(){
       }
     }, function(err, res, body){
       const { follows } = body;
-      follows.forEach(function(follow) {
+      (follows || []).forEach(function(follow) {
         const timeFollowed = new Date(follow.created_at).getTime();
         const currentTime = new Date().getTime();
         if(currentTime - timeFollowed < FOLLOWS_INTERVAL){

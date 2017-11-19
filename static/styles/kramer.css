@@ -1,0 +1,35 @@
+#notification {
+  padding: 25px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -250px;
+  margin-top: -125px;
+  opacity: 0;
+}
+
+.user-name {
+  background-color: #FCFF20;
+  width: 450px;
+  height: 200px;
+  border-radius: 100%;
+  border-bottom: 4px solid black;
+  transform: rotate(-10deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#notification.show {
+  opacity: 1.0;
+  transition: opacity 1.5s ease;
+}
+
+.text {
+  transform: rotate(10deg) scaleY(2.5) translate(0px, -2px);
+  font-family: Times New Roman;
+  font-size: 75px;
+  text-align: center;
+  color: red;
+  text-shadow: 2px 1px 0 black;
+}
