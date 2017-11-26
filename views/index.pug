@@ -1,8 +1,14 @@
 html
   head
-    title= title
+    title LanzoAlert Manifest
     link(rel="stylesheet" href="/styles/global.css")
+    link(rel="stylesheet" href="/styles/manifest.css")
   body
-    h1= message
-    | look under /user/:username/profile/:profile
-    
+    h1 LanzoAlerts
+    h3= title
+    p Currently I only connect to my own chat (thelanzolini).
+    ul.links
+      each val in links
+        li.link
+          a.link(href=`${val}`)= val
+    p Give the alert up to 30 seconds to show up. They all have different Queue times.

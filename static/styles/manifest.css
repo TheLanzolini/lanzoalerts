@@ -1,0 +1,11 @@
+body {
+  text-align: center;
+}
+h1 {
+  padding-top: 21px;
+}
+.links {
+  text-align: left;
+  list-style: none;
+  display: inline-block;
+}

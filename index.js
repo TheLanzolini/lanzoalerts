@@ -31,7 +31,16 @@ app.use(express.static('static'));
 
 // express routes
 app.get('/', function (req, res) {
-  res.render('index', { title: 'Hey', message: 'Hello there!' });
+  fs.readdir(`${__dirname}/static/profiles`, function(err, files){
+    const profiles = files.map(function(file){
+      return file.replace('.js', '');
+    });
+    const title = `I have made ${profiles.length} profiles so far.`;
+    const links = profiles.map(function(profile){
+      return `/user/thelanzolini/profile/${profile}?test`;
+    });
+    res.render('index', { title, links });
+  });
 });
 
 app.get('/user/:username/profile/:profile', function (req, res) {
