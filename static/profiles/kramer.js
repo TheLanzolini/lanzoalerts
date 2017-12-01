@@ -91,10 +91,17 @@ function notify(notification) {
   var $kramerWrapper = document.createElement('div');
   $kramerWrapper.classList.add('kramer-wrapper');
 
-  var $kramer = document.createElement('img');
-  $kramer.src = 'https://i.imgur.com/Z4kYED1.gif';
+  // var $kramer = document.createElement('img');
+  // $kramer.src = 'https://i.imgur.com/Z4kYED1.gif';
 
-  $kramerWrapper.appendChild($kramer);
+  (['kramer', 'jerry', 'george', 'elaine']).forEach(function(member){
+    var $gif = document.createElement('img');
+    $gif.src = `/images/kramer/${member}.gif`;
+    $gif.classList.add('gif');
+    $kramerWrapper.appendChild($gif);
+  });
+
+  // $kramerWrapper.appendChild($kramer);
 
   $notification.appendChild($sein);
   $notification.appendChild($user);

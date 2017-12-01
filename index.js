@@ -24,6 +24,11 @@ const commands = {
 const OAUTH = process.env.OAUTH;
 const CLIENT_ID = process.env.CLIENT_ID;
 
+if (OAUTH === undefined || CLIENT_ID === undefined) {
+  throw new Error('process.env.OAUTH and process.env.CLIENT_ID were not found.');
+  process.exit();
+}
+
 // express init
 server.listen(process.env.PORT || 4000);
 app.set('view engine', 'pug');
