@@ -1,8 +1,8 @@
-var ROOM = 'joshog';
+var ROOM = 'thelanzolini';
 var QUEUE_INTERVAL_TIME = 30000;
 
 if(location.search == '?test'){
-  // QUEUE_INTERVAL_TIME = 1000;
+  QUEUE_INTERVAL_TIME = 1000;
   var QUEUE = [
     { type: 'follow', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" } } },
     { type: 'cheer', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" }, userstate: { bits: 100 } } },
