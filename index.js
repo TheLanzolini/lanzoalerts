@@ -102,6 +102,7 @@ CLIENT = new tmi.client({
   channels: CHANNEL_NAMES
 });
 
+
 // Connect the client to the server..
 CLIENT.connect();
 
