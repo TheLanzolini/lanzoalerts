@@ -7,7 +7,7 @@
   "author": "Alex <thelanzolini@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node_modules/.bin/nodemon index.js"
   },
   "engines": {
     "node": "6.9.1",
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "express": "^4.15.3",
+    "nodemon": "^1.13.3",
     "pug": "^2.0.0-rc.2",
     "socket.io": "^2.0.3",
     "tmi.js": "^1.2.1"

@@ -2,6 +2,7 @@
   opacity: 0;
   width: 100%;
   height: 100%;
+  transition: opacity 1.5s ease;
 }
 
 .sein {
@@ -43,7 +44,6 @@
 
 #notification.show {
   opacity: 1.0;
-  transition: opacity 1.5s ease;
 }
 
 .sein-text {

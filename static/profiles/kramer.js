@@ -4,7 +4,7 @@ var QUEUE_INTERVAL_TIME = 30000;
 if(location.search == '?test'){
   QUEUE_INTERVAL_TIME = 1000;
   var QUEUE = [
-    { type: 'follow', data: { user: { display_name: "ThePoridgeater", name: "theporidgeater" } } },
+    { type: 'follow', data: { user: { display_name: "A_New_Guy", name: "theporidgeater" } } },
     // { type: 'follow', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" } } },
     // { type: 'follow', data: { user: { display_name: "Afeonim", name: "afeonim" } } },
     // { type: 'follow', data: { user: { display_name: "Coreyshift", name: "coreyshift" } } }

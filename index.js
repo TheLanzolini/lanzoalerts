@@ -159,14 +159,16 @@ const followsInterval = setInterval(function(){
         'Client-ID': process.env.CLIENT_ID
       }
     }, function(err, res, body){
-      const { follows } = body;
-      (follows || []).forEach(function(follow) {
-        const timeFollowed = new Date(follow.created_at).getTime();
-        const currentTime = new Date().getTime();
-        if(currentTime - timeFollowed < FOLLOWS_INTERVAL){
-          ROOMS[key].emit('follow', follow);
-        }
-      });
+      if (!err) {
+        const { follows } = body;
+        (follows || []).forEach(function(follow) {
+          const timeFollowed = new Date(follow.created_at).getTime();
+          const currentTime = new Date().getTime();
+          if(currentTime - timeFollowed < FOLLOWS_INTERVAL){
+            ROOMS[key].emit('follow', follow);
+          }
+        });
+      }
     });
   });
 
