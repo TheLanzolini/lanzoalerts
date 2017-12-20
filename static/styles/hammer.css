@@ -6,8 +6,13 @@ body {
   0% {
     transform: translateX(-100%) rotate(153deg);
   }
+  80% {
+    transform: translateX(calc(50vw - 175px)) rotate(153deg);
+    opacity: 1.0;
+  }
   100% {
-    transform: translateX(calc(50vw)) rotate(153deg);
+    transform: translateX(calc(50vw - 175px)) rotate(153deg);
+    opacity: 0.0;
   }
 }
 
@@ -15,27 +20,77 @@ body {
   0% {
     transform: translateX(100%) rotate(-27deg);
   }
+  80% {
+    transform: translateX(calc(-50vw + 175px)) rotate(-27deg);
+    opacity: 1.0;
+  }
   100% {
-    transform: translateX(-50vw) rotate(-27deg);
+    transform: translateX(calc(-50vw + 175px)) rotate(-27deg);
+    opacity: 0.0
+  }
+}
+
+@keyframes sway {
+  0% {
+    transform: translateY(-1%);
+  }
+  100% {
+    transform: translateY(1%);
   }
 }
 
 .mjolnir {
   position: absolute;
+  width: 250px;
+  opacity: 0.0;
+}
+
+.explosion {
+  width: 500px;
+  position: absolute;
+  left: 50%;
+  margin-left: -250px;
+  transition: opacity 0.5s linear;
+}
+
+.explosion.fade {
+  opacity: 0.0;
 }
 
 .mjolnir1 {
-  top: 83px;
+  top: 180px;
   left: 0;
   transform: translateX(-100%) rotate(153deg);
   animation: hammerLeft 0.5s linear;
-  animation-delay: 2s;
+  animation-delay: 1.75s;
 }
 
 .mjolnir2 {
-  top: 0;
+  top: 150px;
   right: 0;
   transform: translateX(100%) rotate(-27deg);
   animation: hammerRight 0.5s linear;
-  animation-delay: 2s;
+  animation-delay: 1.75s;
+}
+
+
+.notification-text {
+  text-align: center;
+  font-family: 'Bungee', sans-serif;
+  font-size: 42px;
+  padding-top: 175px;
+  opacity: 0;
+  transition: opacity 0.2s linear;
+  animation-name: sway;
+  animation-duration: 1.0s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-delay: 0.5s;
+  text-shadow: 2px 2px 0 black, -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
+  color: gold;
+}
+
+.notification-text.fade {
+  opacity: 1;
 }
