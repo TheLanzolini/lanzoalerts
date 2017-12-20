@@ -4,10 +4,10 @@ var QUEUE_INTERVAL_TIME = 30000;
 if(location.search == '?test'){
   QUEUE_INTERVAL_TIME = 1000;
   var QUEUE = [
-    { type: 'follow', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" } } },
-    { type: 'cheer', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" }, userstate: { bits: 100 } } },
-    { type: 'resub', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" } } },
-    { type: 'subscription', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" } } }
+    { type: 'follow', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" } } 
+    // { type: 'cheer', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" }, userstate: { bits: 100 } } },
+    // { type: 'resub', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" } } },
+    // { type: 'subscription', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" } } }
   ]
 } else {
   var QUEUE = [];

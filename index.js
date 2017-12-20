@@ -20,6 +20,10 @@ const commands = {
   ]
 }
 
+function LOG(message) {
+  console.log('[LANZOALERTS]: '+message)
+}
+
 // env variables that are required
 const OAUTH = process.env.OAUTH;
 const CLIENT_ID = process.env.CLIENT_ID;
@@ -135,24 +139,27 @@ CLIENT.on('chat', function(channel, userstate, message, self){
 
 CLIENT.on('join', function(channel, username, self){
   ROOMS[channel.replace('#', '')].emit('join', { username });
-});
+})
 
 CLIENT.on('subscription', function (channel, username, method, message, userstate) {
   ROOMS[channel.replace('#', '')].emit('subscription', { username, method, message, userstate });
+  LOG(`[${channel}] NEW SUB [${username}]`);
 });
 
 CLIENT.on('resub', function (channel, username, months, message, userstate, methods) {
   ROOMS[channel.replace('#', '')].emit('resub', { username, months, message, userstate, methods });
+  LOG(`[${channel}] NEW RESUB [${username}]`);
 });
 
 CLIENT.on('cheer', function (channel, userstate, message) {
   ROOMS[channel.replace('#', '')].emit('cheer', { channel, userstate, message });
+  LOG(`[${channel}] NEW CHEER [${userstate.user.display_name}]`);
 });
 
 const followsInterval = setInterval(function(){
   const keys = Object.keys(FOLLOWS_INFO);
   keys.forEach(function(key){
-    const { oauth, id } = FOLLOWS_INFO[key];
+    const { id } = FOLLOWS_INFO[key];
     CLIENT.api({
       url: `https://api.twitch.tv/kraken/channels/${id}/follows`,
       headers: {
@@ -166,6 +173,7 @@ const followsInterval = setInterval(function(){
           const timeFollowed = new Date(follow.created_at).getTime();
           const currentTime = new Date().getTime();
           if(currentTime - timeFollowed < FOLLOWS_INTERVAL){
+            LOG(`[${key}] NEW FOLLOW [${follow.user.display_name}]`)
             ROOMS[key].emit('follow', follow);
           }
         });
