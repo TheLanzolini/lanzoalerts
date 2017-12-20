@@ -1,0 +1,41 @@
+body {
+  /*overflow: 0;*/
+}
+
+@keyframes hammerLeft {
+  0% {
+    transform: translateX(-100%) rotate(153deg);
+  }
+  100% {
+    transform: translateX(calc(50vw)) rotate(153deg);
+  }
+}
+
+@keyframes hammerRight {
+  0% {
+    transform: translateX(100%) rotate(-27deg);
+  }
+  100% {
+    transform: translateX(-50vw) rotate(-27deg);
+  }
+}
+
+.mjolnir {
+  position: absolute;
+}
+
+.mjolnir1 {
+  top: 83px;
+  left: 0;
+  transform: translateX(-100%) rotate(153deg);
+  animation: hammerLeft 0.5s linear;
+  animation-delay: 2s;
+}
+
+.mjolnir2 {
+  top: 0;
+  right: 0;
+  transform: translateX(100%) rotate(-27deg);
+  animation: hammerRight 0.5s linear;
+  animation-delay: 2s;
+}
