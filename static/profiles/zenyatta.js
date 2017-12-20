@@ -1,4 +1,5 @@
-var ROOM = 'zzyzxtv'
+var PROFILE = 'zenyatta'
+var ROOM = location.pathname.replace('/user/', '').replace('/profile/' + PROFILE, '');
 if(location.search == '?test'){
   var QUEUE = [
     { type: 'subscription', data: { username: 'TheLanzolini', message: '' } },

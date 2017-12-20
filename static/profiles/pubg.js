@@ -1,4 +1,5 @@
-var ROOM = 'thelanzolini';
+var PROFILE = 'pubg'
+var ROOM = location.pathname.replace('/user/', '').replace('/profile/' + PROFILE, '');
 var QUEUE_INTERVAL_TIME = 10000;
 
 if(location.search == '?test'){

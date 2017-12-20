@@ -1,10 +1,11 @@
-var ROOM = 'thelanzolini';
+var PROFILE = 'kramer'
+var ROOM = location.pathname.replace('/user/', '').replace('/profile/' + PROFILE, '');
 var QUEUE_INTERVAL_TIME = 30000;
 
 if(location.search == '?test'){
   QUEUE_INTERVAL_TIME = 1000;
   var QUEUE = [
-    { type: 'follow', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" } } 
+    { type: 'follow', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" } } }
     // { type: 'cheer', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" }, userstate: { bits: 100 } } },
     // { type: 'resub', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" } } },
     // { type: 'subscription', data: { user: { display_name: "TheLanzolini", name: "thelanzolini" } } }
