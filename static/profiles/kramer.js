@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded', function(){
   $notification = document.getElementById('notification');
   $theme = document.createElement('audio');
   $theme.src = '/sounds/kramer/seinfeld.mp3';
-  $theme.volume = 0.5;
+  $theme.volume = 0.3;
 
   var link = document.createElement('link');
   link.rel = "stylesheet";
@@ -75,7 +75,7 @@ function notify(notification) {
   var $seinText = document.createElement('div');
   $seinText.classList.add('sein-text');
   //
-  $seinText.textContent = 'TheLanzolini';
+  $seinText.textContent = `${ROOM.charAt(0).toUpperCase()}${ROOM.slice(1)}`;
   $sein.appendChild($seinText);
 
   var $user = document.createElement('div');

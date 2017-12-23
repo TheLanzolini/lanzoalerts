@@ -46,7 +46,7 @@ app.get('/', function (req, res) {
     });
     const title = `I have made ${profiles.length} profiles so far.`;
     const links = profiles.map(function(profile){
-      return `/user/thelanzolini/profile/${profile}?test`;
+      return `/user/lanzo/profile/${profile}?test`;
     });
     res.render('index', { title, links });
   });
