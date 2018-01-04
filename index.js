@@ -15,8 +15,9 @@ const FOLLOWS_INFO = {};
 let ROOM_NAMES, CLIENT, CHANNEL_NAMES, CHANNEL_IDS;
 
 const commands = {
-  'thelanzolini': [
-    '!victory'
+  'lanzo': [
+    '!victory',
+    '!salt'
   ]
 }
 
@@ -34,7 +35,7 @@ if (OAUTH === undefined || CLIENT_ID === undefined) {
 }
 
 // express init
-server.listen(process.env.PORT || 4000);
+server.listen(process.env.PORT || 8000);
 app.set('view engine', 'pug');
 app.use(express.static('static'));
 
