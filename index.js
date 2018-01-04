@@ -26,8 +26,8 @@ function LOG(message) {
 }
 
 // env variables that are required
-const OAUTH = process.env.OAUTH;
-const CLIENT_ID = process.env.CLIENT_ID;
+const OAUTH = process.env.LANZOALERTS_OAUTH;
+const CLIENT_ID = process.env.LANZOALERTS_CLIENT_ID;
 
 if (OAUTH === undefined || CLIENT_ID === undefined) {
   throw new Error('process.env.OAUTH and process.env.CLIENT_ID were not found.');

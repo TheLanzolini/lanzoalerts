@@ -1,0 +1,64 @@
+@keyframes gnome {
+  from {
+    transform: translateY(5%);
+  }
+  to {
+    transform: translateY(10%);
+  }
+}
+
+.gnome {
+  background-image: url('/images/scape/scape.png');
+  width: 200px;
+  height: 200px;
+  background-repeat: no-repeat;
+  background-position: center 60px;
+  background-size: 100%;
+  bottom: 0;
+  position: absolute;
+  transform: translateY(100%);
+  transition: transform;
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(.3,-0.41,.67,1.36);
+  /*animation-name: gnome;*/
+  animation-timing-function: cubic-bezier(.3,-0.41,.67,1.36);
+  animation-duration: 0.5s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.0;
+  }
+  to {
+    opacity: 1.0;
+  }
+}
+
+.text {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.name {
+  font-family: 'Slabo 27px', serif;
+  font-size: 76px;
+  color: #FFE700;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+#notification, .notification-body {
+  width: 100%;
+  height: 100%;
+}
+
+.notification-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
