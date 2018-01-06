@@ -1,29 +1,37 @@
 var PROFILE = 'lanzo-visual-commands';
 var ROOM = 'lanzo';
-var QUEUE_INTERVAL_TIME = 5000;
+var QUEUE_INTERVAL_TIME = 30000;
 
 if(location.search == '?test'){
   var QUEUE = [
+    '!praise',
     '!jacked'
   ]
 } else {
   var QUEUE = [];
 }
 
-function jacked() {
-  var $jacked = document.createElement('video');
-  $jacked.src = '/videos/jacked.mp4';
-  $jacked.setAttribute('autoplay', true);
-  document.body.appendChild($jacked);
-  $jacked.addEventListener('ended', function(){
-    setTimeout(function(){
-      document.body.removeChild($jacked);
-    }, 200);
+function video(name) {
+  var $video = document.createElement('video');
+  $video.src = '/videos/'+ name +'.mp4';
+  $video.setAttribute('autoplay', true);
+  document.body.appendChild($video);
+  $video.addEventListener('ended', function(){
+    document.body.removeChild($video);
   });
 }
 
+function jacked() {
+  video('jacked');
+}
+
+function praise() {
+  video('praise');
+}
+
 var commands = {
-  '!jacked': jacked
+  '!jacked': jacked,
+  '!praise': praise
 }
 
 window.addEventListener('DOMContentLoaded', function(){

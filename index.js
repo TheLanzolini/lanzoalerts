@@ -18,6 +18,7 @@ const commands = {
   'lanzo': [
     '!victory',
     '!jacked',
+    '!praise',
     '!salt'
   ]
 }
