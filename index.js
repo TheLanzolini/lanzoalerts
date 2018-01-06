@@ -17,6 +17,7 @@ let ROOM_NAMES, CLIENT, CHANNEL_NAMES, CHANNEL_IDS;
 const commands = {
   'lanzo': [
     '!victory',
+    '!jacked',
     '!salt'
   ]
 }
@@ -132,7 +133,8 @@ CLIENT.on('chat', function(channel, userstate, message, self){
   if(!!commands[chan]){
     commands[chan].forEach(function(command){
       if(message.includes(command)){
-        ROOMS[chan].emit(command, { userstate, message });
+        // ROOMS[chan].emit(command, { userstate, message });
+        ROOMS[chan].emit('command', { command, userstate, message });
       }
     });
   }

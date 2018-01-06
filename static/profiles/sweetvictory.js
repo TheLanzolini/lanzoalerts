@@ -42,8 +42,10 @@ window.addEventListener('DOMContentLoaded', function(){
     QUEUE.push({ type: 'follow', data });
   });
 
-  socket.on('!victory', function(data){
-    spongeNotify();
+  socket.on('command', function(data){
+    if (data.command == '!victory') {
+      spongeNotify();
+    }
   });
 
   var queueInterval = setInterval(function(){
