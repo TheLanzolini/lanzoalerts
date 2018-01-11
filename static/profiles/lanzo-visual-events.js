@@ -1,6 +1,6 @@
 var PROFILE = 'lanzo-visual-commands';
 var ROOM = 'lanzo';
-var QUEUE_INTERVAL_TIME = 30000;
+var running = false;
 
 if(location.search == '?test'){
   var QUEUE = [
@@ -11,27 +11,55 @@ if(location.search == '?test'){
   var QUEUE = [];
 }
 
+function next() {
+  if(QUEUE[0]) {
+    running = true;
+    const promise = QUEUE.shift();
+    promise().then(function(){
+      console.log('2000 buffer');
+      setTimeout(next, 2000);
+    });
+  } else {
+    running = false;
+  }
+}
+
+function addToQueue(promise) {
+  QUEUE.push(promise);
+  if (!running) {
+    next();
+  }
+}
+
 function video(name) {
-  var $video = document.createElement('video');
-  $video.src = '/videos/'+ name +'.mp4';
-  $video.setAttribute('autoplay', true);
-  document.body.appendChild($video);
-  $video.addEventListener('ended', function(){
-    document.body.removeChild($video);
+  return new Promise(function(resolve, reject) {
+    var $video = document.createElement('video');
+    $video.src = '/videos/'+ name +'.mp4';
+    $video.setAttribute('autoplay', true);
+    document.body.appendChild($video);
+    $video.addEventListener('ended', function(){
+      document.body.removeChild($video);
+      return resolve();
+    });
   });
 }
 
 function jacked() {
-  video('jacked');
+  return video('jacked');
 }
 
 function praise() {
-  video('praise');
+  return video('praise');
+}
+
+function theway() {
+  return video('theway');
 }
 
 var commands = {
   '!jacked': jacked,
-  '!praise': praise
+  '!praise': praise,
+  '!theway': theway
 }
 
 window.addEventListener('DOMContentLoaded', function(){
@@ -39,14 +67,9 @@ window.addEventListener('DOMContentLoaded', function(){
 
   socket.on('command', function(data) {
     console.log(data);
-    QUEUE.push(data.command);
-  });
-
-  var queueInterval = setInterval(function(){
-    var command = QUEUE.shift();
-    if (command && !!commands[command]) {
-      commands[command]();
+    if (commands[data.command]) {
+      addToQueue(commands[data.command]);
     }
-  }, QUEUE_INTERVAL_TIME);
+  });
 
 });

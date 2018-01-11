@@ -19,6 +19,7 @@ const commands = {
     '!victory',
     '!jacked',
     '!praise',
+    '!theway',
     '!salt'
   ]
 }
