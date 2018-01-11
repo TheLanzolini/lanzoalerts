@@ -40,9 +40,9 @@ function video(name) {
     $video.src = '/videos/'+ name +'.mp4';
     $video.setAttribute('autoplay', true);
     $video.volume = 0.8;
-    document.body.appendChild($video);
+    $notification.appendChild($video);
     $video.addEventListener('ended', function(){
-      document.body.removeChild($video);
+      $notification.removeChild($video);
       return resolve();
     });
   });
