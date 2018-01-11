@@ -20,7 +20,12 @@ const commands = {
     '!jacked',
     '!praise',
     '!theway',
-    '!salt'
+    '!salt',
+    '!rave',
+    '!lightson',
+    '!lioghtsoff',
+    '!lights',
+    '!brightness'
   ]
 }
 
