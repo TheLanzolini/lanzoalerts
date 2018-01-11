@@ -3,3 +3,177 @@ video {
   margin: auto;
   display: block;
 }
+
+
+@font-face {
+  font-family: 'Headliner';
+  src: url('/fonts/Headliner.ttf') format('truetype');
+}
+
+html {
+  font-family: 'Bungee', cursive;
+}
+
+#notification {
+  width: 100%;
+  height: 100%;
+}
+/* Spongebob Notification
+===========================
+*/
+
+.rockstar {
+  animation-name: rockstar;
+  animation-duration: 0.05s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  width: 250px;
+}
+
+@keyframes rockstar {
+  from {
+    transform: rotate(-3deg);
+  }
+  to {
+    transform: rotate(3deg);
+  }
+}
+
+.patrick-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-110%);
+  animation-name: patrick;
+  animation-duration: 9s;
+  animation-timing-function: linear;
+}
+
+@keyframes patrick {
+  0% {
+    transform: translateX(-110%);
+  }
+  1% {
+    transform: translateX(0%);
+  }
+  95% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-110%);
+  }
+}
+
+.spongebob-wrap {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translateX(110%);
+  animation-name: spongebob;
+  animation-duration: 9s;
+  animation-timing-function: linear;
+}
+
+@keyframes spongebob {
+  0% {
+    transform: translateX(110%);
+  }
+  19% {
+    transform: translateX(110%);
+  }
+  20% {
+    transform: translateX(0%);
+  }
+  95% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(110%);
+  }
+}
+
+.sandy-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(110%);
+  animation-name: sandy;
+  animation-duration: 9s;
+  animation-timing-function: linear;
+}
+
+@keyframes sandy {
+  0% {
+    transform: translateX(110%);
+  }
+  39% {
+    transform: translateX(110%);
+  }
+  40% {
+    transform: translateX(0%);
+  }
+  95% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(110%);
+  }
+}
+
+.krabs-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-110%);
+  animation-name: krabs;
+  animation-duration: 9s;
+  animation-timing-function: linear;
+}
+
+@keyframes krabs {
+  0% {
+    transform: translateX(-110%);
+  }
+  56% {
+    transform: translateX(-110%);
+  }
+  57% {
+    transform: translateX(0%);
+  }
+  95% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-110%);
+  }
+}
+
+.fans {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -240px;
+  transform: translateY(-100%);
+  animation-name: fans;
+  animation-duration: 9s;
+  animation-timing-function: linear;
+}
+
+@keyframes fans {
+  0% {
+    transform: translateY(-100%);
+  }
+  64% {
+    transform: translateY(-100%);
+  }
+  65% {
+    transform: translateY(0%);
+  }
+  95% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-110%);
+  }
+}
