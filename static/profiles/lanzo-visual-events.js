@@ -123,8 +123,7 @@ var commands = {
   '!jacked': jacked,
   '!praise': praise,
   '!theway': theway,
-  '!sweetvictory': sweetvictory,
-  '!rave': rave
+  '!sweetvictory': sweetvictory
 }
 
 window.addEventListener('DOMContentLoaded', function(){
