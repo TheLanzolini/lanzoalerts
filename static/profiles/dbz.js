@@ -4,7 +4,8 @@ if(location.search == '?test'){
   var QUEUE = [
     { type: 'cheer', data: { username: 'Lanzo', userstate: { bits: 100 }, message: 'Cheer100 :) I just cheered!' } },
     { type: 'resub', data: { username: 'Lanzo', message: 'I just resubbed, and this is my message :)', months: 2 } },
-    { type: 'subscription', data: { username: 'Lanzo', message: '' } }
+    { type: 'subscription', data: { username: 'Lanzo', message: '' } },
+    { type: 'follow', data: { user: { display_name: "ThePoridgeater", name: "theporidgeater" } } }
   ];
 }else{
   var QUEUE = [];
@@ -15,11 +16,11 @@ window.addEventListener('DOMContentLoaded', function(){
 
   $audio = document.createElement('audio');
   $audio.src = '/sounds/dbz/dbz.mp3';
-  $audio.volume = 0.3;
+  $audio.volume = 0.15;
 
   $transmission = document.createElement('audio');
   $transmission.src = '/sounds/dbz/instant_transmission.mp3';
-  $transmission.volume = 0.3;
+  $transmission.volume = 0.15;
 
   var link = document.createElement('link');
   link.rel = "stylesheet";
@@ -40,6 +41,10 @@ window.addEventListener('DOMContentLoaded', function(){
   socket.on('cheer', function(data){
     console.log('cheer', data);
     QUEUE.push({ type: 'cheer', data });
+  });
+  socket.on('follow', function(data){
+    console.log('follow', data);
+    QUEUE.push({ type: 'follow', data });
   });
 
   var queueInterval = setInterval(function(){
