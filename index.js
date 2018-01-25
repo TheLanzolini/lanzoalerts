@@ -8,10 +8,11 @@ const users = require('./users.json');
 
 // YOUR BOT USERNAME
 const BOT_USERNAME = 'Lanzobot';
-const FOLLOWS_INTERVAL = 60000;
+const FOLLOWS_INTERVAL = 15000;
 
 const ROOMS = {};
 const FOLLOWS_INFO = {};
+const RECENT_FOLLOWS = {};
 let ROOM_NAMES, CLIENT, CHANNEL_NAMES, CHANNEL_IDS;
 
 const commands = {
@@ -127,7 +128,7 @@ ROOM_NAMES.forEach(function(name){
     url: `https://api.twitch.tv/kraken/users?login=${name}`,
     headers: {
       'Accept': 'application/vnd.twitchtv.v5+json',
-      'Client-ID': process.env.CLIENT_ID
+      'Client-ID': CLIENT_ID
     }
   }, function(err, res, body){
     if(body.users && body.users.length > 0 && body.users[0].name == name) {
@@ -182,15 +183,21 @@ const followsInterval = setInterval(function(){
     }, function(err, res, body){
       if (!err) {
         const { follows } = body;
-        (follows || []).forEach(function(follow) {
-          // FIX THIS. SOMETIMES IT DOESN'T GET NEW ONES
-          const timeFollowed = new Date(follow.created_at).getTime();
-          const currentTime = new Date().getTime();
-          if(currentTime - timeFollowed < FOLLOWS_INTERVAL){
-            LOG(`[${key}] NEW FOLLOW [${follow.user.display_name}]`)
-            ROOMS[key].emit('follow', follow);
-          }
-        });
+        if (!follows) {
+          return;
+        }
+        if (!RECENT_FOLLOWS[key]) {
+          RECENT_FOLLOWS[key] = (follows || []).map(follow => follow.user.display_name);
+        } else {
+          follows.forEach(function(follow) {
+            console.log(`${follow.user.display_name} followed?: ${RECENT_FOLLOWS[key].includes(follow.user.display_name)}`)
+            if (!RECENT_FOLLOWS[key].includes(follow.user.display_name)) {
+              LOG(`[${key}] NEW FOLLOW [${follow.user.display_name}]`)
+              ROOMS[key].emit('follow', follow);
+            }
+          });
+          RECENT_FOLLOWS[key] = (follows || []).map(follow => follow.user.display_name);
+        }
       }
     });
   });
