@@ -2,10 +2,10 @@ var PROFILE = 'dbz'
 var ROOM = location.pathname.replace('/user/', '').replace('/profile/' + PROFILE, '');
 if(location.search == '?test'){
   var QUEUE = [
+    { type: 'follow', data: { user: { display_name: "ThePoridgeater", name: "theporidgeater" } } },
     { type: 'cheer', data: { username: 'Lanzo', userstate: { bits: 100 }, message: 'Cheer100 :) I just cheered!' } },
     { type: 'resub', data: { username: 'Lanzo', message: 'I just resubbed, and this is my message :)', months: 2 } },
-    { type: 'subscription', data: { username: 'Lanzo', message: '' } },
-    { type: 'follow', data: { user: { display_name: "ThePoridgeater", name: "theporidgeater" } } }
+    { type: 'subscription', data: { username: 'Lanzo', message: '' } }
   ];
 }else{
   var QUEUE = [];
@@ -92,7 +92,7 @@ function subNotification (notification) {
 
   var $notificationUser = document.createElement('div');
   $notificationUser.classList.add('notification-user');
-  $notificationUser.textContent = notification.data.userstate && notification.data.userstate.username ? notification.data.userstate.username : notification.data.username;
+  $notificationUser.textContent = notification.data.userstate && notification.data.userstate.username ? notification.data.userstate.username : notification.data.user && notification.data.user.display_name ? notification.data.user.display_name : notification.data.username;
 
   var $notificationDescription = document.createElement('div');
   $notificationDescription.classList.add('notification-description');
