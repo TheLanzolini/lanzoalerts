@@ -1,0 +1,8 @@
+// set your client id and oauth here
+// ouath needs to include "oauth:"
+
+
+module.exports = {
+    LANZOALERTS_CLIENT_ID: '',
+    LANZOALERTS_OAUTH: ''
+}

@@ -5,6 +5,7 @@ const io = require('socket.io')(server);
 const fs = require('fs');
 const tmi = require('tmi.js');
 const users = require('./users.json');
+const config = require('./config.js');
 
 // YOUR BOT USERNAME
 const BOT_USERNAME = 'Lanzobot';
@@ -34,13 +35,16 @@ function LOG(message) {
 }
 
 // env variables that are required
-const OAUTH = process.env.LANZOALERTS_OAUTH;
-const CLIENT_ID = process.env.LANZOALERTS_CLIENT_ID;
+// const OAUTH = process.env.LANZOALERTS_OAUTH;
+// const CLIENT_ID = process.env.LANZOALERTS_CLIENT_ID;
 
-if (OAUTH === undefined || CLIENT_ID === undefined) {
-  throw new Error('process.env.OAUTH and process.env.CLIENT_ID were not found.');
-  process.exit();
-}
+const OAUTH = config.LANZOALERTS_OAUTH;
+const CLIENT_ID = config.LANZOALERTS_CLIENT_ID;
+
+// if (OAUTH === undefined || CLIENT_ID === undefined) {
+//   throw new Error('process.env.OAUTH and process.env.CLIENT_ID were not found.');
+//   process.exit();
+// }
 
 // express init
 server.listen(process.env.PORT || 8000);
@@ -163,7 +167,7 @@ CLIENT.on('resub', function (channel, username, months, message, userstate, meth
 
 CLIENT.on('cheer', function (channel, userstate, message) {
   ROOMS[channel.replace('#', '')].emit('cheer', { channel, userstate, message });
-  LOG(`[${channel}] NEW CHEER [${userstate.user.display_name}]`);
+  LOG(`[${channel}] NEW CHEER [${userstate.username}]`);
 });
 
 const followsInterval = setInterval(function(){
@@ -174,12 +178,13 @@ const followsInterval = setInterval(function(){
       url: `https://api.twitch.tv/kraken/channels/${id}/follows`,
       headers: {
         'Accept': 'application/vnd.twitchtv.v5+json',
-        'Client-ID': process.env.CLIENT_ID
+        'Client-ID': CLIENT_ID
       }
     }, function(err, res, body){
       if (!err) {
         const { follows } = body;
         (follows || []).forEach(function(follow) {
+          // FIX THIS. SOMETIMES IT DOESN'T GET NEW ONES
           const timeFollowed = new Date(follow.created_at).getTime();
           const currentTime = new Date().getTime();
           if(currentTime - timeFollowed < FOLLOWS_INTERVAL){

@@ -1,0 +1,174 @@
+body {
+  overflow: hidden;
+  font-family: 'Luckiest Guy';
+}
+
+@keyframes goku {
+  0% {
+    transform: translateX(-100%);
+  }
+  10% {
+    transform: translateX(-100%);
+  }
+  11% {
+    transform: translateX(0%);
+  }
+  99% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes vegeta {
+  0% {
+    transform: translateX(100%);
+  }
+  13% {
+    transform: translateX(100%);
+  }
+  14% {
+    transform: translateX(0%);
+  }
+  99% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes gohan {
+  0% {
+    transform: translateX(100%);
+  }
+  19% {
+    transform: translateX(100%);
+  }
+  20% {
+    transform: translateX(0%);
+  }
+  99% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes trunks {
+  0% {
+    transform: translateX(-100%);
+  }
+  21% {
+    transform: translateX(-100%);
+  }
+  22% {
+    transform: translateX(0%);
+  }
+  99% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes box {
+  0% {
+    transform: translateY(-100%);
+  }
+  23% {
+    transform: translateY(-100%);
+  }
+  24% {
+    transform: translateY(0%);
+  }
+  30% {
+    transform: translateY(5%);
+  }
+  50% {
+    transform: translateY(-1%);
+  }
+  60% {
+    transform: translateY(5%);
+  }
+  70% {
+    transform: translateY(-1%);
+  }
+  80% {
+    transform: translateY(5%);
+  }
+  99% {
+    transform: translateY(-1%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+
+.slide {
+  /* width: 350px; */
+  height: 175px;
+  display: block;
+  position: absolute;
+}
+
+.goku {
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  animation-name: goku;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+.vegeta {
+  bottom: 0;
+  right: 0;
+  transform: translateX(100%);
+  animation-name: vegeta;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+.gohan {
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  animation-name: gohan;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+.trunks {
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  animation-name: trunks;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+}
+
+.notification-box {
+  text-align: center;
+  font-size: 40px;
+  letter-spacing: 2px;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  transform: translateY(-100%);
+  animation-name: box;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+  color: red;
+  text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+}
+
+.notification-user {
+  font-size: 52px;
+  color: yellow;
+  text-shadow: 2px 2px 0 black, -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
+}
