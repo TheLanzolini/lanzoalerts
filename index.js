@@ -5,7 +5,6 @@ const io = require('socket.io')(server);
 const fs = require('fs');
 const tmi = require('tmi.js');
 const users = require('./users.json');
-const config = require('./config.js');
 
 // YOUR BOT USERNAME
 const BOT_USERNAME = 'Lanzobot';
@@ -38,8 +37,8 @@ function LOG(message) {
 // const OAUTH = process.env.LANZOALERTS_OAUTH;
 // const CLIENT_ID = process.env.LANZOALERTS_CLIENT_ID;
 
-const OAUTH = config.LANZOALERTS_OAUTH;
-const CLIENT_ID = config.LANZOALERTS_CLIENT_ID;
+const OAUTH = process.env.LANZOALERTS_OAUTH;
+const CLIENT_ID = process.env.LANZOALERTS_CLIENT_ID;
 
 // if (OAUTH === undefined || CLIENT_ID === undefined) {
 //   throw new Error('process.env.OAUTH and process.env.CLIENT_ID were not found.');
